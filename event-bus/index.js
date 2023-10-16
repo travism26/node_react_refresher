@@ -5,9 +5,13 @@ const axios = require('axios');
 const app = express();
 app.use(bodyParser.json());
 
+const eventStore = [];
+
 app.post('/events', (req, res) => {
     console.log('Recieved an event send to all other services');
     const event = req.body;
+
+    eventStore.push(event);
 
     axios.post('http://localhost:4000/events', event).catch((err) => {
         console.log(err.message);
@@ -24,6 +28,10 @@ app.post('/events', (req, res) => {
     });
 
     res.send({ status: 'OK' });
+});
+
+app.get('/events', (req, res) => {
+    res.send(eventStore);
 });
 
 app.listen(4005, () => {
