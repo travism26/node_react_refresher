@@ -22,7 +22,7 @@ curl --header "Content-Type: application/json" \
 --data '{ "title": "hello" }' \
 http://localhost:4000/posts
  */
-app.post('/posts', async (req, res) => {
+app.post('/posts/create', async (req, res) => {
     const id = randomBytes(4).toString('hex');
     const { title } = req.body;
     console.log('Recieved post request' + title);
